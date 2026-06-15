@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Игровые Бонусы</title>
+  <meta name="description" content="Лучшие игровые бонусы и предложения — Welvura и Lucky Jet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --purple-dark: #0d0015;
+      --purple-mid: #1a0030;
+      --purple-accent: #7c3aed;
+      --purple-glow: #a855f7;
+      --neon-pink: #e879f9;
+      --gold: #fbbf24;
+      --white: #f8f4ff;
+    }
+
+    html, body {
+      min-height: 100%;
+      font-family: 'Outfit', sans-serif;
+      background: var(--purple-dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── Animated starfield background ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 0%, rgba(124,58,237,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(168,85,247,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 20% 60%, rgba(232,121,249,0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Stars */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .stars span {
+      position: absolute;
+      border-radius: 50%;
+      background: #fff;
+      opacity: 0;
+      animation: twinkle var(--d, 3s) var(--delay, 0s) infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: var(--o, 0.7); transform: scale(1.4); }
+    }
+
+    /* ── Header ── */
+    header {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 48px 20px 24px;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(124,58,237,0.15);
+      border: 1px solid rgba(168,85,247,0.3);
+      border-radius: 999px;
+      padding: 8px 22px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--purple-glow);
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+    .logo-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--neon-pink);
+      box-shadow: 0 0 10px var(--neon-pink);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.5); opacity: 0.6; }
+    }
+
+    header h1 {
+      font-size: clamp(2rem, 6vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.1;
+      background: linear-gradient(135deg, #fff 0%, #c084fc 50%, #e879f9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    header p {
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      color: rgba(248,244,255,0.55);
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0 24px;
+      max-width: 900px;
+      margin: 10px auto 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(168,85,247,0.4), transparent);
+    }
+    .divider-icon {
+      font-size: 20px;
+    }
+
+    /* ── Banner Grid ── */
+    main {
+      position: relative;
+      z-index: 10;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 28px;
+      max-width: 960px;
+      margin: 40px auto 60px;
+      padding: 0 20px;
+    }
+
+    /* ── Banner Card ── */
+    .banner-card {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(168,85,247,0.2);
+      backdrop-filter: blur(12px);
+      transition: transform 0.35s cubic-bezier(.22,.68,0,1.2),
+                  box-shadow 0.35s ease,
+                  border-color 0.35s ease;
+      cursor: pointer;
+    }
+    .banner-card:hover {
+      transform: translateY(-8px) scale(1.01);
+      box-shadow:
+        0 0 40px rgba(168,85,247,0.35),
+        0 0 80px rgba(168,85,247,0.15),
+        0 20px 60px rgba(0,0,0,0.5);
+      border-color: rgba(168,85,247,0.6);
+    }
+    .banner-card:active {
+      transform: translateY(-4px) scale(0.99);
+    }
+
+    /* Animated glow border on hover */
+    .banner-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 26px;
+      background: linear-gradient(135deg, var(--purple-accent), var(--neon-pink), var(--purple-accent));
+      background-size: 200% 200%;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      animation: borderSpin 3s linear infinite;
+    }
+    .banner-card:hover::before {
+      opacity: 1;
+    }
+    @keyframes borderSpin {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Image wrapper */
+    .banner-img-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+    }
+    .banner-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.5s cubic-bezier(.22,.68,0,1.2);
+    }
+    .banner-card:hover .banner-img-wrap img {
+      transform: scale(1.06);
+    }
+
+    /* Overlay gradient on image */
+    .banner-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        transparent 40%,
+        rgba(13,0,21,0.85) 100%
+      );
+      pointer-events: none;
+    }
+
+    /* Badge on image */
+    .banner-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      background: rgba(13,0,21,0.7);
+      border: 1px solid rgba(168,85,247,0.5);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--neon-pink);
+      backdrop-filter: blur(6px);
+    }
+
+    /* Card body */
+    .banner-body {
+      padding: 22px 24px 26px;
+    }
+    .banner-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .banner-desc {
+      font-size: 0.92rem;
+      color: rgba(248,244,255,0.5);
+      margin-bottom: 20px;
+      line-height: 1.55;
+    }
+
+    /* CTA Button */
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 28px;
+      border-radius: 14px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-decoration: none;
+      color: #fff;
+      background: linear-gradient(135deg, #7c3aed, #a855f7, #e879f9);
+      background-size: 200% 200%;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: background-position 0.4s ease, transform 0.2s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 24px rgba(124,58,237,0.4);
+    }
+    .btn-cta::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0);
+      transition: background 0.25s ease;
+    }
+    .btn-cta:hover {
+      background-position: 100% 50%;
+      box-shadow: 0 6px 36px rgba(168,85,247,0.6), 0 0 60px rgba(232,121,249,0.2);
+      transform: translateY(-1px);
+    }
+    .btn-cta:hover::after {
+      background: rgba(255,255,255,0.06);
+    }
+    .btn-cta:active {
+      transform: translateY(1px);
+    }
+    .btn-arrow {
+      transition: transform 0.25s ease;
+    }
+    .btn-cta:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    /* ── Lucky Jet card accent ── */
+    .card-luckyjet .btn-cta {
+      background: linear-gradient(135deg, #92400e, #d97706, #fbbf24);
+      box-shadow: 0 4px 24px rgba(251,191,36,0.3);
+    }
+    .card-luckyjet .btn-cta:hover {
+      box-shadow: 0 6px 36px rgba(251,191,36,0.5), 0 0 40px rgba(251,191,36,0.2);
+    }
+    .card-luckyjet .banner-title {
+      background: linear-gradient(135deg, #fbbf24, #f97316);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .card-luckyjet .banner-badge {
+      color: #fbbf24;
+      border-color: rgba(251,191,36,0.5);
+    }
+    .card-luckyjet:hover {
+      box-shadow:
+        0 0 40px rgba(251,191,36,0.25),
+        0 0 80px rgba(251,191,36,0.1),
+        0 20px 60px rgba(0,0,0,0.5);
+      border-color: rgba(251,191,36,0.5);
+    }
+
+    /* ── Footer ── */
+    footer {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 24px 20px 40px;
+      color: rgba(248,244,255,0.25);
+      font-size: 0.8rem;
+    }
+    footer a {
+      color: rgba(168,85,247,0.5);
+      text-decoration: none;
+    }
+
+    /* ── Floating particles ── */
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--purple-glow);
+      opacity: 0;
+      animation: floatUp var(--dur, 8s) var(--delay, 0s) infinite linear;
+    }
+    @keyframes floatUp {
+      0% { opacity: 0; transform: translateY(0) scale(0); }
+      10% { opacity: var(--op, 0.4); transform: translateY(-10px) scale(1); }
+      90% { opacity: var(--op, 0.4); }
+      100% { opacity: 0; transform: translateY(-120vh) scale(0.5); }
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header {
+        padding: 36px 16px 16px;
+      }
+      main {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin: 28px auto 48px;
+        padding: 0 14px;
+      }
+      .banner-body {
+        padding: 18px 18px 22px;
+      }
+      .btn-cta {
+        padding: 13px 20px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Stars background -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Floating particles -->
+  <div class="particles" id="particles"></div>
+
+  <!-- Header -->
+  <header>
+    <div class="logo-badge">
+      <span class="dot"></span>
+      Горячие предложения
+    </div>
+    <h1>Играй&nbsp;&amp;&nbsp;Побеждай</h1>
+    <p>Выбери свою игру и получи бонус прямо сейчас</p>
+  </header>
+
+  <div class="divider"><span class="divider-icon">✦</span></div>
+
+  <!-- Banners -->
+  <main>
+
+    <!-- Welvura Card -->
+    <article class="banner-card card-welvura" onclick="window.open('https://welvar.link/?i=649186','_blank')">
+      <div class="banner-img-wrap">
+        <span class="banner-badge">🎮 Топ игра</span>
+        <img src="welvura.jpg" alt="Welvura — игра с бонусами" loading="eager" />
+      </div>
+      <div class="banner-body">
+        <h2 class="banner-title">Welvura</h2>
+        <p class="banner-desc">Присоединяйся к тысячам игроков. Эксклюзивный бонус при регистрации по этой ссылке!</p>
+        <a class="btn-cta" href="https://welvar.link/?i=649186" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          Играть сейчас
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </article>
+
+    <!-- Lucky Jet Card -->
+    <article class="banner-card card-luckyjet" onclick="window.open('https://lkhv.pro/0d20e7','_blank')">
+      <div class="banner-img-wrap">
+        <span class="banner-badge">🚀 Хит сезона</span>
+        <img src="luckyjet.jpg" alt="Lucky Jet — краш-игра" loading="eager" />
+      </div>
+      <div class="banner-body">
+        <h2 class="banner-title">Lucky Jet</h2>
+        <p class="banner-desc">Сорвись в полёт и выведи максимальный множитель. Быстро, азартно, прибыльно!</p>
+        <a class="btn-cta" href="https://lkhv.pro/0d20e7" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+          Лечу играть
+          <span class="btn-arrow">→</span>
+        </a>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>18+ &nbsp;|&nbsp; Играйте ответственно &nbsp;|&nbsp; Есть риск потери средств</p>
+  </footer>
+
+  <script>
+    /* ── Generate stars ── */
+    (function () {
+      const container = document.getElementById('stars');
+      for (let i = 0; i < 120; i++) {
+        const s = document.createElement('span');
+        const size = Math.random() * 2.5 + 0.5;
+        s.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${Math.random()*100}%;
+          top:${Math.random()*100}%;
+          --d:${(Math.random()*4+2).toFixed(1)}s;
+          --delay:${(Math.random()*5).toFixed(1)}s;
+          --o:${(Math.random()*0.6+0.2).toFixed(2)};
+        `;
+        container.appendChild(s);
+      }
+    })();
+
+    /* ── Generate floating particles ── */
+    (function () {
+      const container = document.getElementById('particles');
+      const colors = ['#a855f7','#e879f9','#7c3aed','#fbbf24','#c084fc'];
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 6 + 2;
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        p.style.cssText = `
+          width:${size}px; height:${size}px;
+          left:${Math.random()*100}%;
+          bottom:${Math.random()*-10}%;
+          background:${color};
+          box-shadow: 0 0 ${size*2}px ${color};
+          --dur:${(Math.random()*10+6).toFixed(1)}s;
+          --delay:${(Math.random()*8).toFixed(1)}s;
+          --op:${(Math.random()*0.3+0.15).toFixed(2)};
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    /* ── Ripple on card click ── */
+    document.querySelectorAll('.banner-card').forEach(card => {
+      card.addEventListener('mousedown', function(e) {
+        const rect = card.getBoundingClientRect();
+        const ripple = document.createElement('span');
+        const size = Math.max(rect.width, rect.height) * 2;
+        ripple.style.cssText = `
+          position:absolute;
+          border-radius:50%;
+          background:rgba(168,85,247,0.18);
+          width:${size}px; height:${size}px;
+          left:${e.clientX - rect.left - size/2}px;
+          top:${e.clientY - rect.top - size/2}px;
+          transform:scale(0);
+          animation:rippleAnim 0.6s ease-out forwards;
+          pointer-events:none;
+          z-index:99;
+        `;
+        card.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+    });
+
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes rippleAnim {
+        to { transform: scale(1); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
